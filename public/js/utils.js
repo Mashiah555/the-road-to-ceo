@@ -8,12 +8,28 @@ window.closeInstructions = function () {
     document.getElementById('instructions-modal').style.display = 'none';
 };
 
+window.openSettings = function () {
+    document.getElementById('settings-modal').style.display = 'block';
+};
+
+window.closeSettings = function () {
+    document.getElementById('settings-modal').style.display = 'none';
+};
+
+window.updateSettings = function () {
+    baseInitialCoins = parseInt(document.getElementById('initial-coins-slider').value);
+    baseCoinDecay = parseInt(document.getElementById('decay-coins-slider').value);
+
+    document.getElementById('initial-coins-val').innerText = baseInitialCoins;
+    document.getElementById('decay-coins-val').innerText = baseCoinDecay;
+};
+
 // Close the modal if the user clicks anywhere outside of the modal content
 window.onclick = function (event) {
-    const modal = document.getElementById('instructions-modal');
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
+    const instModal = document.getElementById('instructions-modal');
+    const setModal = document.getElementById('settings-modal');
+    if (event.target === instModal) instModal.style.display = "none";
+    if (event.target === setModal) setModal.style.display = "none";
 };
 
 // --- Utility Functions ---

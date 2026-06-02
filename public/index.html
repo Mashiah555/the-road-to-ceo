@@ -12,7 +12,7 @@
   <script src="js/data.js" defer></script>
   <script src="js/support.js" defer></script>
   <script src="js/utils.js" defer></script>
-  <script src="js/game.js" defer></script>
+  <script src="js/game_engine.js" defer></script>
 </head>
 
 <body>
@@ -28,8 +28,11 @@
         אפילו תרדו בדרגה.</p>
       <p>הניקוד מבוסס על איכות התשובה (למשל: תקשורת אסרטיבית מול פסיבית) ועל מהירות קבלת ההחלטה.</p>
 
-      <button class="primary-btn" onclick="startGame()">התחל משחק</button>
-      <button class="secondary-btn" onclick="openInstructions()">איך משחקים?</button>
+      <div class="action-buttons">
+        <button class="secondary-btn" onclick="openInstructions()">איך משחקים?</button>
+        <button class="primary-btn" onclick="startGame()">התחל משחק</button>
+        <button class="secondary-btn" onclick="openSettings()">הגדרות קושי</button>
+      </div>
     </div>
 
     <!-- Main Game Area -->
@@ -38,6 +41,7 @@
         <div class="stat-item">זמן כולל: <span id="global-timer">00:00</span></div>
         <div class="stat-item">דרגה נוכחית: <span id="current-rank">מועמד</span></div>
         <div class="stat-item">שכר מצטבר: <span id="total-salary">0</span> ₪</div>
+        <button class="danger-btn" onclick="resetGame()">חזור להתחלה</button>
       </div>
 
       <div id="current-reward-container">
@@ -75,6 +79,23 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeInstructions()">&times;</span>
       <div id="instructions-text"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeSettings()">&times;</span>
+      <h2>הגדרות משחק</h2>
+      <div class="setting-group">
+        <label>מטבעות התחלתיים לסיטואציה: <span id="initial-coins-val" class="highlight-val">12000</span></label>
+        <input type="range" id="initial-coins-slider" min="1000" max="50000" step="1000" value="12000"
+          oninput="updateSettings()">
+      </div>
+      <div class="setting-group">
+        <label>קנס מטבעות על כל שנייה שעוברת: <span id="decay-coins-val" class="highlight-val">100</span></label>
+        <input type="range" id="decay-coins-slider" min="0" max="500" step="25" value="100" oninput="updateSettings()">
+      </div>
     </div>
   </div>
 

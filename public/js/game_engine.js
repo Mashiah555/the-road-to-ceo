@@ -7,6 +7,10 @@ let totalSalary = 0;
 let currentRankIndex = 0;
 let pendingNextScenarioId = null;
 
+// Game Difficulty Settings
+let baseInitialCoins = 12000;
+let baseCoinDecay = 100;
+
 // --- Game Logic ---
 
 // Note: Making functions global by attaching to window so HTML inline handlers can access them
@@ -46,13 +50,17 @@ function loadScenario(scenarioId) {
     document.getElementById('scenario-text').innerText = scenario.text;
 
     // Reset scenario coins and start decay timer
-    currentScenarioCoins = 10000;
+    currentScenarioCoins = baseInitialCoins;
     document.getElementById('current-coins').innerText = currentScenarioCoins;
 
     if (scenarioTimerInterval) clearInterval(scenarioTimerInterval);
     scenarioTimerInterval = setInterval(() => {
-        if (currentScenarioCoins > 1000) { // Minimum 1000 base before multipliers
-            currentScenarioCoins -= 150;
+        // Floor limit is relative to 10% of base coins
+        let minFloor = Math.floor(baseInitialCoins * 0.1);
+
+        if (currentScenarioCoins > minFloor) {
+            currentScenarioCoins -= baseCoinDecay;
+            if (currentScenarioCoins < minFloor) currentScenarioCoins = minFloor;
             document.getElementById('current-coins').innerText = currentScenarioCoins;
         }
     }, 1000);
@@ -155,5 +163,9 @@ function endGame() {
 }
 
 window.resetGame = function () {
+    // Clear timers if user manually aborts during a scenario
+    if (globalTimerInterval) clearInterval(globalTimerInterval);
+    if (scenarioTimerInterval) clearInterval(scenarioTimerInterval);
+
     showScreen('start-screen');
 };

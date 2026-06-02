@@ -8,7 +8,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 25px;
     box-sizing: border-box;
 }
 
@@ -17,16 +17,36 @@ body {
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 850px;
+    max-width: 950px;
     padding: 30px;
     text-align: center;
     position: relative;
+}
+
+/* Logo Styling */
+#main-logo {
+    max-width: 180px;
+    height: auto;
+    margin: 0 auto 20px auto;
+    padding: 8px;
+    display: block;
+    /* Centered with space below*/
+    border-radius: 15%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust logo for small screens */
+@media (max-width: 600px) {
+    #main-logo {
+        max-width: 130px;
+    }
 }
 
 /* Statistics bar */
 #stats-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: #e2e8f0;
     padding: 15px 20px;
     border-radius: 8px;
@@ -34,7 +54,8 @@ body {
     font-weight: bold;
     font-size: 1.1em;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .stat-item span {
@@ -43,19 +64,19 @@ body {
 
 /* Scenario typography */
 #scenario-text {
-    font-size: 1.3em;
-    margin-bottom: 20px;
+    font-size: 1.4em;
+    margin-bottom: 25px;
     line-height: 1.6;
     font-weight: 600;
 }
 
 #current-reward-container {
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #c53030;
     margin-bottom: 25px;
     font-weight: bold;
     background: #fff5f5;
-    padding: 10px;
+    padding: 15px;
     border-radius: 6px;
     border: 1px solid #feb2b2;
 }
@@ -64,19 +85,20 @@ body {
 #options-container {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
 button.option-btn {
     background-color: #3182ce;
     color: white;
     border: none;
-    padding: 16px;
+    padding: 18px;
     border-radius: 8px;
     font-size: 1.1em;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: right;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button.option-btn:hover {
@@ -97,14 +119,24 @@ button.option-btn:hover {
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(10px);
     }
 
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
 /* General buttons */
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
 .primary-btn {
     background-color: #38a169;
     color: white;
@@ -113,7 +145,7 @@ button.option-btn:hover {
     border-radius: 8px;
     font-size: 1.2em;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 10px;
     transition: background-color 0.2s;
 }
 
@@ -130,12 +162,27 @@ button.option-btn:hover {
     font-size: 1.2em;
     cursor: pointer;
     margin-top: 20px;
-    margin-right: 15px;
+    margin-right: 10px;
     transition: background-color 0.2s;
 }
 
 .secondary-btn:hover {
     background-color: #2d3748;
+}
+
+.danger-btn {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.danger-btn:hover {
+    background-color: #c53030;
 }
 
 .close-btn {
@@ -202,7 +249,8 @@ button.option-btn:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-#instructions-text h2 {
+#instructions-text h2,
+.modal-content h2 {
     margin-top: 0;
     color: #2b6cb0;
 }
@@ -217,21 +265,24 @@ button.option-btn:hover {
     font-size: 1.1em;
 }
 
-/* Logo Styling */
-#main-logo {
-    max-width: 180px;
-    height: auto;
-    margin: 0 auto 20px auto;
-    padding: 8px;
-    display: block;
-    /* Centered with space below*/
-    border-radius: 15%;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+/* Settings Form */
+.setting-group {
+    margin-top: 25px;
+    text-align: right;
 }
 
-/* Adjustment for small screens */
-@media (max-width: 600px) {
-    #main-logo {
-        max-width: 130px;
-    }
+.setting-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.highlight-val {
+    color: #3182ce;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
 }
