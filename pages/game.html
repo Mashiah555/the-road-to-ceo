@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Skills Cooperative Game</title>
+    <style>
+        /* Base styling and layout */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #game-container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 850px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Statistics bar */
+        #stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e2e8f0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .stat-item span {
+            color: #2b6cb0;
+        }
+
+        /* Scenario typography */
+        #scenario-text {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        #current-reward-container {
+            font-size: 1.1em;
+            color: #c53030;
+            margin-bottom: 25px;
+            font-weight: bold;
+            background: #fff5f5;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #feb2b2;
+        }
+
+        /* Action buttons */
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button.option-btn {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: right;
+        }
+
+        button.option-btn:hover {
+            background-color: #2b6cb0;
+            transform: translateY(-2px);
+        }
+
+        /* Screen management */
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* General buttons */
+        .primary-btn {
+            background-color: #38a169;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        .primary-btn:hover {
+            background-color: #2f855a;
+        }
+
+        /* Feedback modal styles */
+        #feedback-box {
+            display: none;
+            background-color: #ebf8ff;
+            border: 2px solid #90cdf4;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #feedback-box.error {
+            background-color: #fff5f5;
+            border-color: #feb2b2;
+        }
+
+        #feedback-text {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container">
+
+        <div id="start-screen" class="screen active">
+            <h1>הדרך למנכ"ל - מיומנויות המאה ה-21</h1>
+            <p>במשחק זה תתמודדו כקבוצה עם סיטואציות מעולם העבודה המשתנה. ההחלטות שלכם יקבעו אם תתקדמו בדרגה, תשארו במקום
+                או אפילו תרדו בדרגה.</p>
+            <p>הניקוד מבוסס על איכות התשובה (למשל: תקשורת אסרטיבית מול פסיבית) ועל מהירות קבלת ההחלטה.</p>
+            <button class="primary-btn" onclick="startGame()">התחל משחק</button>
+        </div>
+
+        <div id="scenario-screen" class="screen">
+            <div id="stats-bar">
+                <div class="stat-item">זמן כולל: <span id="global-timer">00:00</span></div>
+                <div class="stat-item">דרגה נוכחית: <span id="current-rank">מועמד</span></div>
+                <div class="stat-item">שכר מצטבר: <span id="total-salary">0</span> ₪</div>
+            </div>
+
+            <div id="current-reward-container">
+                מטבעות פוטנציאליים לזמן זה: <span id="current-coins">10000</span>
+                <br><small>(הסכום הסופי יוכפל בהתאם לאיכות התשובה שתבחרו)</small>
+            </div>
+
+            <div id="scenario-text">
+            </div>
+
+            <div id="options-container">
+            </div>
+
+            <div id="feedback-box">
+                <div id="feedback-text"></div>
+                <button class="primary-btn" id="next-btn" onclick="proceedToNext()">המשך לסיטואציה הבאה</button>
+            </div>
+        </div>
+
+        <div id="end-screen" class="screen">
+            <h1 id="end-title">המשחק הסתיים!</h1>
+            <p id="end-message"></p>
+            <div class="stat-item">זמן משחק כולל: <strong id="final-time"></strong></div>
+            <div class="stat-item">סך שכר שהורווח: <strong id="final-salary"></strong> ₪</div>
+            <div class="stat-item">דרגה סופית: <strong id="final-rank"></strong></div>
+            <div class="stat-item" style="margin-top: 15px;">שיא השכר שלכם: <strong id="best-score"></strong> ₪</div>
+            <button class="primary-btn" onclick="resetGame()">שחקו שוב</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Core Game Variables ---
+        let globalTimeInSeconds = 0;
+        let globalTimerInterval = null;
+        let currentScenarioCoins = 10000;
+        let scenarioTimerInterval = null;
+        let totalSalary = 0;
+
+        // Define the hierarchy of ranks
+        const rankHierarchy = [
+            "מועמד לעבודה",
+            "עובד זוטר",
+            "ראש צוות",
+            "מנהל מחלקה",
+            "סמנכ\"ל",
+            "מנכ\"ל"
+        ];
+        let currentRankIndex = 0;
+        let pendingNextScenarioId = null;
+
+        // --- Scenario Database ---
+        // Includes options linked to EQ, Assertiveness, and Proactivity concepts.
+        const scenarios = {
+            "interview": {
+                text: "אתם מגיעים לראיון עבודה ונשאלים שאלה חסרת טאקט שלדעתכם לא אמורה להישאל (למשל לגבי תכנון משפחה).",
+                options: [
+                    {
+                        text: "לענות בחוסר נוחות ולהתעלם מהפגיעה בפרטיות.",
+                        rankChange: 0,
+                        coinMultiplier: 0.2,
+                        feedback: "זוהי תגובה פסיבית. ויתרתם על הצרכים שלכם למען המראיין. נשארתם באותה דרגה.",
+                        nextScenario: "interview_followup"
+                    },
+                    {
+                        text: "לכעוס על המראיין, להגיד שזו חוצפה ולפוצץ את הראיון.",
+                        rankChange: -1,
+                        coinMultiplier: -0.5,
+                        feedback: "זוהי תגובה אגרסיבית. יצרתם קונפליקט ופגעתם בסיכויים. איבדתם נקודות וירדתם בדרגה.",
+                        nextScenario: "interview_followup"
+                    },
+                    {
+                        text: "להשיב בנימוס אך באסרטיביות: 'אני מעדיף להתמקד בניסיון המקצועי שלי שיכול לתרום לחברה'.",
+                        rankChange: 1,
+                        coinMultiplier: 1.0,
+                        feedback: "מצוין! זוהי תקשורת אסרטיבית השומרת על הגבולות שלכם בצורה מכבדת. עליתם דרגה!",
+                        nextScenario: "junior_tech_change"
+                    }
+                ]
+            },
+            "interview_followup": {
+                text: "לאחר הראיון המורכב, קיבלתם הזדמנות נוספת להוכיח את עצמכם במשימת בית. איך תיגשו אליה?",
+                options: [
+                    {
+                        text: "לעשות את המינימום הנדרש ולקוות לטוב.",
+                        rankChange: 0,
+                        coinMultiplier: 0.2,
+                        feedback: "גישה ריאקטיבית. אין פה חשיבה מתפתחת. נשארתם במקום.",
+                        nextScenario: "junior_tech_change"
+                    },
+                    {
+                        text: "לחקור את החברה לעומק ולהגיש תוצר שמשקף הבנה של הצרכים העסקיים שלהם.",
+                        rankChange: 1,
+                        coinMultiplier: 1.0,
+                        feedback: "גישה פרואקטיבית! לקחתם יוזמה ואחריות. התקבלתם ועליתם דרגה!",
+                        nextScenario: "junior_tech_change"
+                    }
+                ]
+            },
+            "junior_tech_change": {
+                text: "מערכת AI חדשה מוטמעת בארגון והופכת חלק מהעבודה שלכם לאוטומטית. איך תגיבו?",
+                options: [
+                    {
+                        text: "להתלונן שהטכנולוגיה הורסת את המקצוע ולקוות שהארגון יוותר עליה.",
+                        rankChange: -1,
+                        coinMultiplier: -0.2,
+                        feedback: "דפוס חשיבה מקובע. התנגדות לשינוי תוביל להישארות מאחור. ירדתם דרגה.",
+                        nextScenario: "team_conflict"
+                    },
+                    {
+                        text: "לראות בזה הזדמנות, ללמוד את המערכת בעצמכם ולהציע לייעל תהליכים (Upskilling).",
+                        rankChange: 1,
+                        coinMultiplier: 1.0,
+                        feedback: "מעולה! הפגנתם למידה מתמדת ודפוס חשיבה מתפתח. עליתם דרגה!",
+                        nextScenario: "team_conflict"
+                    }
+                ]
+            },
+            "team_conflict": {
+                text: "קולגה לעבודה נוטה 'להפיל' עליכם משימות קבועות בטענה שאין לו זמן.",
+                options: [
+                    {
+                        text: "לעשות את המשימה תוך כדי מרמור ושיתוף עובדים אחרים בתסכול.",
+                        rankChange: 0,
+                        coinMultiplier: 0.3,
+                        feedback: "התנהגות פסיבית-אגרסיבית לא פותרת את הבעיה אלא יוצרת אווירה רעילה.",
+                        nextScenario: "negotiation"
+                    },
+                    {
+                        text: "לסרב בתקיפות ליד כולם ולומר שהוא מנצל אתכם.",
+                        rankChange: -1,
+                        coinMultiplier: -0.5,
+                        feedback: "אינטליגנציה רגשית נמוכה (חוסר ויסות). תגובה אגרסיבית שפוגעת בעבודת הצוות. ירדתם דרגה.",
+                        nextScenario: "negotiation"
+                    },
+                    {
+                        text: "לזמן אותו לשיחה אישית, להסביר את העומס שלכם ולהגדיר גבולות ברורים.",
+                        rankChange: 1,
+                        coinMultiplier: 1.0,
+                        feedback: "ניהול רגשות נכון! תקשורת אסרטיבית ופתרון קונפליקטים. עליתם דרגה!",
+                        nextScenario: "negotiation"
+                    }
+                ]
+            },
+            "negotiation": {
+                text: "אתם מרגישים שתרמתם רבות לחברה ומבקשים העלאת שכר. המנהל אומר שיש קיצוצים.",
+                options: [
+                    {
+                        text: "לנסות להבין את מצב החברה ולהציע מודל תגמול מבוסס בונוסים על הצלחות עתידיות.",
+                        rankChange: 1,
+                        coinMultiplier: 1.0,
+                        feedback: "מודל העניין הכפול: מצאתם פתרון של שיתוף פעולה (Win-Win) המתחשב באינטרסים של שני הצדדים. עליתם דרגה!",
+                        nextScenario: "end"
+                    },
+                    {
+                        text: "לאיים בעזיבה אם לא תקבלו את ההעלאה באופן מיידי.",
+                        rankChange: -1,
+                        coinMultiplier: -0.4,
+                        feedback: "תחרות אגרסיבית. הצבת אולטימטום לעיתים קרובות פוגעת ביחסים לטווח ארוך. ירדתם בדרגה.",
+                        nextScenario: "end"
+                    },
+                    {
+                        text: "לוותר מיד ולהגיד 'אוקי, אולי בשנה הבאה'.",
+                        rankChange: 0,
+                        coinMultiplier: 0.2,
+                        feedback: "ויתור פסיבי. לא עמדתם על הערך שלכם. נשארתם באותה הדרגה.",
+                        nextScenario: "end"
+                    }
+                ]
+            }
+        };
+
+        // --- Utility Functions ---
+
+        // Formats seconds into MM:SS string
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // Handles screen transitions
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // --- Game Logic ---
+
+        function startGame() {
+            globalTimeInSeconds = 0;
+            totalSalary = 0;
+            currentRankIndex = 0;
+
+            document.getElementById('total-salary').innerText = totalSalary;
+            document.getElementById('current-rank').innerText = rankHierarchy[currentRankIndex];
+
+            showScreen('scenario-screen');
+            document.getElementById('feedback-box').style.display = 'none';
+            document.getElementById('options-container').style.display = 'flex';
+
+            // Initiate global timer
+            if (globalTimerInterval) clearInterval(globalTimerInterval);
+            globalTimerInterval = setInterval(() => {
+                globalTimeInSeconds++;
+                document.getElementById('global-timer').innerText = formatTime(globalTimeInSeconds);
+            }, 1000);
+
+            loadScenario("interview");
+        }
+
+        function loadScenario(scenarioId) {
+            if (scenarioId === "end") {
+                endGame();
+                return;
+            }
+
+            const scenario = scenarios[scenarioId];
+
+            // Reset UI for new scenario
+            document.getElementById('feedback-box').style.display = 'none';
+            document.getElementById('options-container').style.display = 'flex';
+            document.getElementById('scenario-text').innerText = scenario.text;
+
+            // Reset scenario coins and start decay timer
+            currentScenarioCoins = 10000;
+            document.getElementById('current-coins').innerText = currentScenarioCoins;
+
+            if (scenarioTimerInterval) clearInterval(scenarioTimerInterval);
+            scenarioTimerInterval = setInterval(() => {
+                if (currentScenarioCoins > 1000) { // Minimum 1000 base before multipliers
+                    currentScenarioCoins -= 150;
+                    document.getElementById('current-coins').innerText = currentScenarioCoins;
+                }
+            }, 1000);
+
+            // Populate choice buttons
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            scenario.options.forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = option.text;
+                btn.onclick = () => handleChoice(option);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleChoice(option) {
+            // Stop scenario decay timer
+            clearInterval(scenarioTimerInterval);
+
+            // Hide options, show feedback
+            document.getElementById('options-container').style.display = 'none';
+            const feedbackBox = document.getElementById('feedback-box');
+            feedbackBox.style.display = 'block';
+
+            // Calculate coins earned based on time left and choice quality
+            const earnedCoins = Math.floor(currentScenarioCoins * option.coinMultiplier);
+            totalSalary += earnedCoins;
+
+            // Prevent salary from going below 0
+            if (totalSalary < 0) totalSalary = 0;
+            document.getElementById('total-salary').innerText = totalSalary;
+
+            // Handle Rank progression logic
+            let oldRank = rankHierarchy[currentRankIndex];
+            currentRankIndex += option.rankChange;
+
+            // Bound the rank index within array limits
+            if (currentRankIndex < 0) currentRankIndex = 0;
+            if (currentRankIndex >= rankHierarchy.length) currentRankIndex = rankHierarchy.length - 1;
+
+            document.getElementById('current-rank').innerText = rankHierarchy[currentRankIndex];
+
+            // Build formatting for feedback box
+            let feedbackHtml = `<strong>${option.feedback}</strong><br><br>`;
+            if (earnedCoins >= 0) {
+                feedbackHtml += `הרווחתם: ${earnedCoins} ₪. `;
+                feedbackBox.className = '';
+            } else {
+                feedbackHtml += `הפסדתם: ${Math.abs(earnedCoins)} ₪. `;
+                feedbackBox.className = 'error';
+            }
+
+            document.getElementById('feedback-text').innerHTML = feedbackHtml;
+
+            // Store next scenario step to be triggered by the continuation button
+            pendingNextScenarioId = option.nextScenario;
+
+            // Check for premature win condition
+            if (currentRankIndex === rankHierarchy.length - 1) {
+                pendingNextScenarioId = "end";
+                document.getElementById('next-btn').innerText = "סיימתם! המשיכו לתוצאות";
+            } else {
+                document.getElementById('next-btn').innerText = "המשך לסיטואציה הבאה";
+            }
+        }
+
+        function proceedToNext() {
+            if (pendingNextScenarioId) {
+                loadScenario(pendingNextScenarioId);
+            }
+        }
+
+        function endGame() {
+            clearInterval(globalTimerInterval);
+            clearInterval(scenarioTimerInterval);
+
+            showScreen('end-screen');
+
+            const isCEO = currentRankIndex === rankHierarchy.length - 1;
+            document.getElementById('end-title').innerText = isCEO ? "ברכות! הגעתם לכס המנכ\"ל!" : "המשחק הסתיים.";
+            document.getElementById('end-message').innerText = isCEO
+                ? "הפגנתם מיומנויות רכות מעולות, תקשורת אסרטיבית ולמידה מתמדת."
+                : "כדי להתקדם בעולם העבודה החדש, חשוב לפתח אינטליגנציה רגשית ולהגיב באופן פרואקטיבי לאתגרים.";
+
+            document.getElementById('final-time').innerText = formatTime(globalTimeInSeconds);
+            document.getElementById('final-salary').innerText = totalSalary;
+            document.getElementById('final-rank').innerText = rankHierarchy[currentRankIndex];
+
+            // Save and retrieve high score (Total Salary) using LocalStorage
+            let bestScore = localStorage.getItem('workplaceGameBestScore');
+
+            if (!bestScore || totalSalary > parseInt(bestScore)) {
+                localStorage.setItem('workplaceGameBestScore', totalSalary);
+                bestScore = totalSalary;
+            }
+
+            document.getElementById('best-score').innerText = bestScore;
+        }
+
+        function resetGame() {
+            showScreen('start-screen');
+        }
+    </script>
+</body>
+
+</html>
