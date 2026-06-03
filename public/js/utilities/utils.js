@@ -24,6 +24,13 @@ window.updateSettings = function () {
     document.getElementById('decay-coins-val').innerText = baseCoinDecayPercentage;
 };
 
+window.resetSettings = function () {
+    document.getElementById('initial-coins-slider').value = 10000;
+    document.getElementById('decay-coins-slider').value = 0.5;
+
+    updateSettings();
+};
+
 // Close the modal if the user clicks anywhere outside of the modal content
 window.onclick = function (event) {
     const instModal = document.getElementById('instructions-modal');

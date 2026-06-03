@@ -356,3 +356,23 @@ input[type="range"] {
     width: 100%;
     cursor: pointer;
 }
+
+.settings-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 20px;
+}
+
+.settings-actions .primary-btn {
+    margin-top: 0;
+    padding: 10px 25px;
+}
+
+.settings-actions .danger-btn {
+    padding: 10px 20px;
+    font-size: 1.1em;
+}

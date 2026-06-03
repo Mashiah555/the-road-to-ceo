@@ -93,14 +93,18 @@
       <h2>הגדרות משחק</h2>
       <div class="setting-group">
         <label>מטבעות בסיס התחלתיים: <span id="initial-coins-val" class="highlight-val">10000</span></label>
-        <input type="range" id="initial-coins-slider" dir="ltr" min="1000" max="50000" step="1000" value="10000"
+        <input type="range" id="initial-coins-slider" min="2000" max="50000" step="1000" value="10000"
           oninput="updateSettings()">
         <small style="display:block; margin-top:5px; color:#718096;">הסכום יוכפל בהתאם לדרגה בה השחקן נמצא.</small>
       </div>
       <div class="setting-group">
-        <label>קנס מטבעות לשנייה (באחוזים): <span id="decay-coins-val" class="highlight-val">0.5</span>%</label>
-        <input type="range" id="decay-coins-slider" dir="ltr" min="0" max="10" step="0.25" value="0.5"
-          oninput="updateSettings()">
+        <label>קנס מטבעות (בכל שנייה במשחק): <span id="decay-coins-val" class="highlight-val">0.5</span>%</label>
+        <input type="range" id="decay-coins-slider" min="0" max="10" step="0.25" value="0.5" oninput="updateSettings()">
+      </div>
+
+      <div class="settings-actions">
+        <button class="danger-btn" onclick="resetSettings()">איפוס</button>
+        <button class="primary-btn" onclick="closeSettings()">שמור</button>
       </div>
     </div>
   </div>
