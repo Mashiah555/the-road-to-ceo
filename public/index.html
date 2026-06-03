@@ -49,11 +49,11 @@
       </div>
 
       <div id="current-reward-container">
-        מטבעות פוטנציאליים לזמן זה: <span id="current-coins">10000</span>
-        <br><small>(הסכום הסופי יוכפל בהתאם לאיכות התשובה שתבחרו)</small>
+        מטבעות פוטנציאליים: <span id="current-coins">10000</span>
+        <br><small style="font-weight: 400;">(סך המטבעות שינתנו נקבע על פי טיב התשובה)</small>
       </div>
 
-      <div id="scenario-text">
+      <div id="scenario-text" style="font-weight: bold">
       </div>
 
       <div id="options-container">
@@ -92,13 +92,15 @@
       <span class="close-btn" onclick="closeSettings()">&times;</span>
       <h2>הגדרות משחק</h2>
       <div class="setting-group">
-        <label>מטבעות התחלתיים לסיטואציה: <span id="initial-coins-val" class="highlight-val">10000</span></label>
-        <input type="range" id="initial-coins-slider" min="1000" max="50000" step="1000" value="10000"
+        <label>מטבעות בסיס התחלתיים: <span id="initial-coins-val" class="highlight-val">10000</span></label>
+        <input type="range" id="initial-coins-slider" dir="ltr" min="1000" max="50000" step="1000" value="10000"
           oninput="updateSettings()">
+        <small style="display:block; margin-top:5px; color:#718096;">הסכום יוכפל בהתאם לדרגה בה השחקן נמצא.</small>
       </div>
       <div class="setting-group">
-        <label>קנס מטבעות על כל שנייה שעוברת: <span id="decay-coins-val" class="highlight-val">50</span></label>
-        <input type="range" id="decay-coins-slider" min="0" max="500" step="10" value="50" oninput="updateSettings()">
+        <label>קנס מטבעות לשנייה (באחוזים): <span id="decay-coins-val" class="highlight-val">0.5</span>%</label>
+        <input type="range" id="decay-coins-slider" dir="ltr" min="0" max="10" step="0.25" value="0.5"
+          oninput="updateSettings()">
       </div>
     </div>
   </div>

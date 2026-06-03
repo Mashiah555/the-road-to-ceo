@@ -68,7 +68,7 @@ function nextSlide() {
         updatePresentationUI();
     } else {
         // Reference the instructions modal in the start game screen, if the last slide
-        window.location.href = "index.html?open=instructions";
+        window.location.href = "/?open=instructions";
     }
 }
 

@@ -7,7 +7,7 @@ let totalSalary = 0;
 
 // Game Difficulty Settings
 let baseInitialCoins = 10000;
-let baseCoinDecay = 50;
+let baseCoinDecayPercentage = 0.5;
 
 // Logic Variables
 const rankHierarchy = Object.keys(gameData);
@@ -71,16 +71,19 @@ function loadRandomScenario() {
     }, 1000);
 
     // Reset scenario coins and start decay timer
-    currentScenarioCoins = baseInitialCoins;
+    let roundInitialCoins = baseInitialCoins * (currentRankIndex + 1);
+    currentScenarioCoins = roundInitialCoins;
     document.getElementById('current-coins').innerText = currentScenarioCoins;
 
     if (scenarioTimerInterval) clearInterval(scenarioTimerInterval);
-    scenarioTimerInterval = setInterval(() => {
-        // Floor limit is relative to 10% of base coins
-        let minFloor = Math.floor(baseInitialCoins * 0.1);
 
+    // Calculate how many coins to drop per second based on the percentage
+    let decayAmount = Math.floor(roundInitialCoins * (baseCoinDecayPercentage / 100));
+    let minFloor = Math.floor(roundInitialCoins * 0.1);
+
+    scenarioTimerInterval = setInterval(() => {
         if (currentScenarioCoins > minFloor) {
-            currentScenarioCoins -= baseCoinDecay;
+            currentScenarioCoins -= decayAmount;
             if (currentScenarioCoins < minFloor) currentScenarioCoins = minFloor;
             document.getElementById('current-coins').innerText = currentScenarioCoins;
         }

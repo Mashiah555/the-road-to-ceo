@@ -18,10 +18,10 @@ window.closeSettings = function () {
 
 window.updateSettings = function () {
     baseInitialCoins = parseInt(document.getElementById('initial-coins-slider').value);
-    baseCoinDecay = parseInt(document.getElementById('decay-coins-slider').value);
+    baseCoinDecayPercentage = parseFloat(document.getElementById('decay-coins-slider').value);
 
     document.getElementById('initial-coins-val').innerText = baseInitialCoins;
-    document.getElementById('decay-coins-val').innerText = baseCoinDecay;
+    document.getElementById('decay-coins-val').innerText = baseCoinDecayPercentage;
 };
 
 // Close the modal if the user clicks anywhere outside of the modal content

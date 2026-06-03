@@ -72,20 +72,20 @@ body {
 
 #current-reward-container {
     font-size: 1.2em;
-    color: #c53030;
+    color: #38a169;
     margin-bottom: 25px;
     font-weight: bold;
-    background: #fff5f5;
+    background: #f5fff9;
     padding: 15px;
     border-radius: 6px;
-    border: 1px solid #feb2b2;
+    border: 1px solid #38a169;
 }
 
 /* Action buttons */
 #options-container {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 button.option-btn {
