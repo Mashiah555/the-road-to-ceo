@@ -4,12 +4,16 @@ let globalTimerInterval = null;
 let currentScenarioCoins = 10000;
 let scenarioTimerInterval = null;
 let totalSalary = 0;
-let currentRankIndex = 0;
-let pendingNextScenarioId = null;
 
 // Game Difficulty Settings
-let baseInitialCoins = 12000;
-let baseCoinDecay = 100;
+let baseInitialCoins = 10000;
+let baseCoinDecay = 50;
+
+// Logic Variables
+const rankHierarchy = Object.keys(gameData);
+let currentRankIndex = 0;
+let playedScenarios = {};
+let pendingAction = null;
 
 // --- Game Logic ---
 
@@ -18,6 +22,7 @@ window.startGame = function () {
     globalTimeInSeconds = 0;
     totalSalary = 0;
     currentRankIndex = 0;
+    playedScenarios = {};
 
     document.getElementById('total-salary').innerText = totalSalary;
     document.getElementById('current-rank').innerText = rankHierarchy[currentRankIndex];
@@ -33,16 +38,36 @@ window.startGame = function () {
         document.getElementById('global-timer').innerText = formatTime(globalTimeInSeconds);
     }, 1000);
 
-    loadScenario("interview");
+    loadRandomScenario();
 };
 
-function loadScenario(scenarioId) {
-    if (scenarioId === "end") {
-        endGame();
-        return;
+function loadRandomScenario() {
+    const currentRankName = rankHierarchy[currentRankIndex];
+    const rankScenarios = gameData[currentRankName];
+    const allScenarioIds = Object.keys(rankScenarios);
+
+    // Initialize tracking array for this rank if it doesn't exist
+    if (!playedScenarios[currentRankName]) {
+        playedScenarios[currentRankName] = [];
     }
 
-    const scenario = scenarios[scenarioId];
+    // Filter to find IDs that haven't been played yet in this match
+    let availableIds = allScenarioIds.filter(id => !playedScenarios[currentRankName].includes(id));
+
+    // Reset tracking for this rank if all questions have been exhausted
+    if (availableIds.length === 0) {
+        playedScenarios[currentRankName] = [];
+        availableIds = allScenarioIds;
+    }
+
+    // Pick a random unplayed scenario
+    const randomId = availableIds[Math.floor(Math.random() * availableIds.length)];
+
+    // Mark as played
+    playedScenarios[currentRankName].push(randomId);
+
+    // Fetch the actual scenario data
+    const scenario = rankScenarios[randomId];
 
     // Reset UI for new scenario
     document.getElementById('feedback-box').style.display = 'none';
@@ -95,13 +120,20 @@ function handleChoice(option) {
     if (totalSalary < 0) totalSalary = 0;
     document.getElementById('total-salary').innerText = totalSalary;
 
-    // Handle Rank progression logic
-    let oldRank = rankHierarchy[currentRankIndex];
+    // Handle Rank progression
     currentRankIndex += option.rankChange;
 
     // Bound the rank index within array limits
     if (currentRankIndex < 0) currentRankIndex = 0;
-    if (currentRankIndex >= rankHierarchy.length) currentRankIndex = rankHierarchy.length - 1;
+
+    // Determine the next flow (Does the player continue or win the game?)
+    // If the player goes BEYOND the final rank (or completed a scenario AT the final rank positively)
+    if (currentRankIndex >= rankHierarchy.length) {
+        currentRankIndex = rankHierarchy.length - 1; // Keep the UI showing the top rank
+        pendingAction = "end";
+    } else {
+        pendingAction = "next";
+    }
 
     document.getElementById('current-rank').innerText = rankHierarchy[currentRankIndex];
 
@@ -117,12 +149,7 @@ function handleChoice(option) {
 
     document.getElementById('feedback-text').innerHTML = feedbackHtml;
 
-    // Store next scenario step to be triggered by the continuation button
-    pendingNextScenarioId = option.nextScenario;
-
-    // Check for premature win condition
-    if (currentRankIndex === rankHierarchy.length - 1) {
-        pendingNextScenarioId = "end";
+    if (pendingAction === "end") {
         document.getElementById('next-btn').innerText = "סיימתם! המשיכו לתוצאות";
     } else {
         document.getElementById('next-btn').innerText = "המשך לסיטואציה הבאה";
@@ -130,8 +157,10 @@ function handleChoice(option) {
 }
 
 window.proceedToNext = function () {
-    if (pendingNextScenarioId) {
-        loadScenario(pendingNextScenarioId);
+    if (pendingAction === "end") {
+        endGame();
+    } else {
+        loadRandomScenario();
     }
 };
 
