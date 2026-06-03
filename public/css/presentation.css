@@ -1,0 +1,194 @@
+/* Base Styles - TED Style (Dark, Minimal, High Contrast) */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000;
+    /* TED black */
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Return Button (Top Corner) */
+.back-btn {
+    position: fixed;
+    top: 25px;
+    right: 30px;
+    /* RTL top right */
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+    opacity: 0.7;
+}
+
+.back-btn:hover {
+    color: #e62b1e;
+    /* TED red */
+    opacity: 1;
+}
+
+.back-btn .arrow {
+    display: inline-block;
+}
+
+/* Presentation Container */
+#presentation-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Individual Slide */
+.slide {
+    position: absolute;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Slide Content & Animations */
+.slide-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+.slide-title {
+    font-size: 3.5em;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    color: #e62b1e;
+    /* TED red */
+    transform: translateY(30px);
+    opacity: 0;
+    line-height: 1.2;
+}
+
+.slide-subtitle {
+    font-size: 1.6em;
+    font-weight: 300;
+    line-height: 1.5;
+    color: #ccc;
+    transform: translateY(30px);
+    opacity: 0;
+}
+
+/* Staggered Animation Triggered on Active Slide */
+.slide.active .slide-icon {
+    animation: slideUpFade 0.8s ease forwards 0.2s;
+}
+
+.slide.active .slide-title {
+    animation: slideUpFade 0.8s ease forwards 0.4s;
+}
+
+.slide.active .slide-subtitle {
+    animation: slideUpFade 0.8s ease forwards 0.6s;
+}
+
+@keyframes slideUpFade {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Controls */
+.controls {
+    position: fixed;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 100;
+}
+
+.controls button {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controls button:hover {
+    background: #e62b1e;
+    border-color: #e62b1e;
+}
+
+.controls button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: transparent;
+    border-color: #fff;
+}
+
+/* Pagination Dots */
+#dots-container {
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: #555;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #e62b1e;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .slide-title {
+        font-size: 2.5em;
+    }
+
+    .slide-subtitle {
+        font-size: 1.2em;
+    }
+
+    .slide-icon {
+        font-size: 4rem;
+    }
+
+    .back-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 1em;
+    }
+}

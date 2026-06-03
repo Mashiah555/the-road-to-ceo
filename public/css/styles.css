@@ -106,6 +106,76 @@ button.option-btn:hover {
     transform: translateY(-2px);
 }
 
+/* --- Spinning Outline Presentation Button --- */
+
+.spinning-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 3px;
+    /* Spinning outline thickness */
+    overflow: hidden;
+    display: inline-flex;
+    z-index: 50;
+}
+
+/* The spinning gradient that acts as a outline */
+.spinning-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 70%, #3182ce 100%);
+    animation: spin-outline 2s linear infinite;
+    z-index: 0;
+}
+
+/* The inner content that hides most of the gradient and leaves only the outline */
+.spinning-btn-inner {
+    position: relative;
+    background-color: #2d3748;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    /* A bit smaller than the outer radius to fit the corners */
+    font-size: 1.1em;
+    font-weight: bold;
+    z-index: 1;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.spinning-btn:hover .spinning-btn-inner {
+    background-color: #1a202c;
+    color: #90cdf4;
+}
+
+/* Spinning Animation */
+@keyframes spin-outline {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Adjustment for smaller screens */
+@media (max-width: 600px) {
+    .spinning-btn {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
 /* Screen management */
 .screen {
     display: none;

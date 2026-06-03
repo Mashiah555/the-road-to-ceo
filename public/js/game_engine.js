@@ -31,13 +31,6 @@ window.startGame = function () {
     document.getElementById('feedback-box').style.display = 'none';
     document.getElementById('options-container').style.display = 'flex';
 
-    // Initiate global timer
-    if (globalTimerInterval) clearInterval(globalTimerInterval);
-    globalTimerInterval = setInterval(() => {
-        globalTimeInSeconds++;
-        document.getElementById('global-timer').innerText = formatTime(globalTimeInSeconds);
-    }, 1000);
-
     loadRandomScenario();
 };
 
@@ -62,17 +55,20 @@ function loadRandomScenario() {
 
     // Pick a random unplayed scenario
     const randomId = availableIds[Math.floor(Math.random() * availableIds.length)];
-
-    // Mark as played
     playedScenarios[currentRankName].push(randomId);
-
-    // Fetch the actual scenario data
     const scenario = rankScenarios[randomId];
 
     // Reset UI for new scenario
     document.getElementById('feedback-box').style.display = 'none';
     document.getElementById('options-container').style.display = 'flex';
     document.getElementById('scenario-text').innerText = scenario.text;
+
+    // Resume global timer
+    if (globalTimerInterval) clearInterval(globalTimerInterval);
+    globalTimerInterval = setInterval(() => {
+        globalTimeInSeconds++;
+        document.getElementById('global-timer').innerText = formatTime(globalTimeInSeconds);
+    }, 1000);
 
     // Reset scenario coins and start decay timer
     currentScenarioCoins = baseInitialCoins;
@@ -106,6 +102,8 @@ function loadRandomScenario() {
 function handleChoice(option) {
     // Stop scenario decay timer
     clearInterval(scenarioTimerInterval);
+    // Pause global timer while reading feedback
+    clearInterval(globalTimerInterval);
 
     // Hide options, show feedback
     document.getElementById('options-container').style.display = 'none';
@@ -198,3 +196,13 @@ window.resetGame = function () {
 
     showScreen('start-screen');
 };
+
+// --- URL Parameters Check for Instructions Modal ---
+window.addEventListener('DOMContentLoaded', (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('open') === 'instructions') {
+        openInstructions();
+
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});

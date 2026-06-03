@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הדרך למנכ"ל - מצגת פרויקט</title>
+    <link rel="icon" href="assets/images/icon.png" type="image/png">
+
+    <link rel="stylesheet" href="css/presentation.css">
+</head>
+
+<body>
+
+    <!-- Back to game button-->
+    <a href="index.html" class="back-btn">
+        <span class="arrow">➔</span> חזרה למשחק
+    </a>
+
+    <!-- MAIN PRESENTATION CONTAINER -->
+    <div id="presentation-container"></div>
+
+    <!-- Navigation Controls -->
+    <div class="controls">
+        <button id="prev-btn" onclick="prevSlide()">הקודם</button>
+        <div id="dots-container"></div>
+        <button id="next-btn" onclick="nextSlide()">הבא</button>
+    </div>
+
+    <script src="js/presentation_data.js"></script>
+    <script src="js/presentation.js"></script>
+</body>
+
+</html>
