@@ -2,7 +2,7 @@
 // Array of objects, each representing a slide in the presentation
 const slidesData = [
     {
-        title: "הדרך למנכ\"ל",
+        title: "הדרך למנכ\"לות",
         subtitle: "איך מנצחים בעולם העבודה החדש?",
         icon: "🚀"
     },
