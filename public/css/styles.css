@@ -215,7 +215,7 @@ button.option-btn:hover {
     border-radius: 8px;
     font-size: 1.2em;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
     transition: background-color 0.2s;
 }
 
@@ -231,8 +231,7 @@ button.option-btn:hover {
     border-radius: 8px;
     font-size: 1.2em;
     cursor: pointer;
-    margin-top: 20px;
-    margin-right: 10px;
+    margin-top: 15px;
     transition: background-color 0.2s;
 }
 
