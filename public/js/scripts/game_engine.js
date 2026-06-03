@@ -124,6 +124,7 @@ function handleChoice(option) {
     document.getElementById('total-salary').innerText = totalSalary;
 
     // Handle Rank progression
+    let oldRankIndex = currentRankIndex;
     currentRankIndex += option.rankChange;
 
     // Bound the rank index within array limits
@@ -138,7 +139,19 @@ function handleChoice(option) {
         pendingAction = "next";
     }
 
-    document.getElementById('current-rank').innerText = rankHierarchy[currentRankIndex];
+    const rankSpan = document.getElementById('current-rank');
+    rankSpan.innerText = rankHierarchy[currentRankIndex];
+
+    // --- Trigger animations if the rank was changed ---
+    if (currentRankIndex > oldRankIndex) {
+        rankSpan.classList.remove('rank-up-anim', 'rank-down-anim');
+        void rankSpan.offsetWidth; // Trigger Reflow
+        rankSpan.classList.add('rank-up-anim');
+    } else if (currentRankIndex < oldRankIndex) {
+        rankSpan.classList.remove('rank-up-anim', 'rank-down-anim');
+        void rankSpan.offsetWidth;
+        rankSpan.classList.add('rank-down-anim');
+    }
 
     // Build formatting for feedback box
     let feedbackHtml = `<strong>${option.feedback}</strong><br><br>`;

@@ -72,13 +72,13 @@ body {
 
 #current-reward-container {
     font-size: 1.2em;
-    color: #38a169;
+    background-color: #ebf8ff;
+    color: #386ca1;
     margin-bottom: 25px;
-    font-weight: bold;
-    background: #f5fff9;
+    font-weight: 625;
     padding: 15px;
     border-radius: 6px;
-    border: 1px solid #38a169;
+    border: 1px solid #90cdf4;
 }
 
 /* Action buttons */
@@ -216,6 +216,8 @@ button.option-btn:hover {
     font-size: 1.2em;
     cursor: pointer;
     margin-top: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
     transition: background-color 0.2s;
 }
 
@@ -273,8 +275,8 @@ button.option-btn:hover {
 /* Feedback modal styles */
 #feedback-box {
     display: none;
-    background-color: #ebf8ff;
-    border: 2px solid #90cdf4;
+    background-color: #f5fff9;
+    border: 2px solid #38a169;
     padding: 20px;
     border-radius: 8px;
     margin-top: 20px;
@@ -374,4 +376,79 @@ input[type="range"] {
 .settings-actions .danger-btn {
     padding: 10px 20px;
     font-size: 1.1em;
+}
+
+/* --- Attention Animations --- */
+
+/* Repeatative pulse animation for the start game button */
+.cta-pulse {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.7);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(56, 161, 105, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(56, 161, 105, 0);
+    }
+}
+
+/* Jump animations for rank changes */
+#current-rank {
+    display: inline-block;
+    /* Required for transform to work on span tags */
+    transition: color 0.3s;
+}
+
+.rank-up-anim {
+    animation: rank-up-pop 0.8s ease-out forwards;
+}
+
+.rank-down-anim {
+    animation: rank-down-pop 0.8s ease-out forwards;
+}
+
+@keyframes rank-up-pop {
+    0% {
+        transform: scale(1);
+        color: #2b6cb0;
+    }
+
+    30% {
+        transform: scale(1.5);
+        color: #38a169;
+        text-shadow: 0 0 15px rgba(56, 161, 105, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        color: #2b6cb0;
+    }
+}
+
+@keyframes rank-down-pop {
+    0% {
+        transform: scale(1);
+        color: #2b6cb0;
+    }
+
+    30% {
+        transform: scale(1.4);
+        color: #e53e3e;
+        text-shadow: 0 0 15px rgba(229, 62, 62, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        color: #2b6cb0;
+    }
 }
