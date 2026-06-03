@@ -93,7 +93,9 @@ function loadRandomScenario() {
     const optionsContainer = document.getElementById('options-container');
     optionsContainer.innerHTML = '';
 
-    scenario.options.forEach(option => {
+    // Shuffle options
+    const shuffledOptions = [...scenario.options].sort(() => Math.random() - 0.5);
+    shuffledOptions.forEach(option => {
         const btn = document.createElement('button');
         btn.className = 'option-btn';
         btn.innerText = option.text;
