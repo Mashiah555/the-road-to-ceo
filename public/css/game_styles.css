@@ -67,17 +67,17 @@ body {
     margin-bottom: 25px;
     line-height: 1.6;
     font-weight: 600;
+    background-color: var(--color-primary-bg);
+    color: var(--color-primary-dark);
+    border-radius: 6px;
+    border: 1px solid var(--color-primary-border);
+    padding: 15px;
 }
 
 #current-reward-container {
     font-size: 1.2em;
-    background-color: var(--color-primary-bg);
-    color: var(--color-primary-dark);
     margin-bottom: 25px;
     font-weight: 625;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid var(--color-primary-border);
 }
 
 /* General buttons */
