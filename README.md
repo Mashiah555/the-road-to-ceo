@@ -63,7 +63,7 @@ The game acts as a "decision-making laboratory," replacing traditional fixed pat
 │   └── images/
 │       ├── icon.png              # Website tab icon
 |       └── logo.png              # Game logo
-├── firebase.json                 # Firebase hosting configuration
+├── firebase.json                 # Firebase hosting configuration - not available on the remote repository, contact a developer for the file
 ├── README.md                     # English documentations
 └── README.he.md                  # Hebrew documentations
 ```
