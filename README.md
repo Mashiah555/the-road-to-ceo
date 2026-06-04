@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <em>Read this document in <a href="README.he.md">Hebrew / עברית</a>.</em>
+  <a href="README.he.md">לחצו כאן לקריאה בעברית</em>
 </p>
 
 ---
@@ -66,3 +66,7 @@ The game acts as a "decision-making laboratory," replacing traditional fixed pat
 ├── firebase.json                 # Firebase hosting configuration
 ├── README.md                     # English documentations
 └── README.he.md                  # Hebrew documentations
+```
+
+## 👨‍💻 Team
+Developed collaboratively by a team of 3 computer science students. This project bridges the gap between rigid algorithmic logic and the nuanced human dynamics required to thrive in the modern tech industry.
