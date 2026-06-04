@@ -163,6 +163,21 @@ function handleChoice(option) {
         feedbackBox.className = 'error';
     }
 
+    // Append the rank position
+    feedbackHtml += '<br>';
+    if (currentRankIndex === oldRankIndex) {
+        feedbackHtml += 'נותרתם בדרגת';
+    } else if (currentRankIndex > oldRankIndex) {
+        feedbackHtml += `קודמתם לדרגת`;
+    } else {
+        if (currentRankIndex === 0) {
+            feedbackHtml += 'פוטרתם מהעבודה ואתם שוב בדרגת';
+        } else {
+            feedbackHtml += `הודחתם מתפקידכם ואתם שוב בדרגת`;
+        }
+    }
+    feedbackHtml += ` ${rankHierarchy[currentRankIndex]}.`;
+
     document.getElementById('feedback-text').innerHTML = feedbackHtml;
 
     if (pendingAction === "end") {
