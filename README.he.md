@@ -34,7 +34,7 @@
 - **מצגת TED מובנית:** מודול מצגת משולב המעניק לשחקנים רקע והקשר ערכי לפני תחילת המשחק.
 
 ## 💻 טכנולוגיות
-- **צד לקוח (Frontend):** HTML5, CSS3, JavaScript (Vanilla).
+- **צד לקוח (Frontend):** HTML, CSS, JavaScript.
 - **ארכיטקטורה:** הפרדת רשויות (Separation of Concerns) מודולרית של קבצי המבנה, העיצוב והלוגיקה.
 - **פריסה (Deployment):** מאוחסן ומוגש דרך **Firebase Hosting**.
 
