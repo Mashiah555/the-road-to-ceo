@@ -1,0 +1,61 @@
+:root {
+    /* Required to enable the light-dark() function */
+    color-scheme: light dark;
+
+    /* Base Backgrounds & Surfaces */
+    --bg-body: light-dark(#f4f7f6, #1a202c);
+    --bg-surface: light-dark(#ffffff, #2d3748);
+    --bg-surface-alt: light-dark(#e2e8f0, #4a5568);
+
+    /* Text Colors */
+    --text-main: light-dark(#333333, #f7fafc);
+    --text-muted: light-dark(#a0aec0, #cbd5e0);
+    --text-action: light-dark(#f7fafc, #f7fafc);
+
+    /* Primary Brand Colors (Blues) */
+    --color-primary: light-dark(#3182ce, #2b6cb0);
+    --color-primary-dark: light-dark(#2b6cb0, #63b3ed);
+    /* Unified #386ca1 and #2b6cb0 */
+    --color-primary-bg: light-dark(#ebf8ff, #2a4365);
+    --color-primary-border: light-dark(#90cdf4, #2b6cb0);
+
+    /* Success Colors (Greens) */
+    --color-success: light-dark(#38a169, #2f855a);
+    --color-success-dark: light-dark(#2f855a, #68d391);
+    --color-success-bg: light-dark(#f5fff9, #22543d);
+
+    /* Danger/Error Colors (Reds) */
+    --color-danger: light-dark(#e53e3e, #e53e3e);
+    --color-danger-dark: light-dark(#c53030, #fc8181);
+    --color-danger-bg: light-dark(#fff5f5, #742a2a);
+    --color-danger-border: light-dark(#feb2b2, #e53e3e);
+
+    /* Secondary Colors (Grays/Dark Blues) */
+    --color-secondary: light-dark(#4a5568, #a0aec0);
+    --color-secondary-dark: light-dark(#556465, #1a202c);
+    --color-secondary-alt: light-dark(#4a5568, #4a5568);
+
+    /* Shadows & Overlays */
+    --shadow-light: light-dark(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.3));
+    --shadow-medium: light-dark(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.4));
+    --shadow-heavy: light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.6));
+    --shadow-modal: light-dark(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    --shadow-text: light-dark(rgba(10, 20, 100, 0.1), rgba(144, 205, 244, 0.2));
+    --overlay-bg: light-dark(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+
+    /* Animation specific colors */
+    --glow-success: light-dark(rgba(56, 161, 105, 0.7), rgba(72, 187, 120, 0.5));
+    --glow-success-transparent: light-dark(rgba(56, 161, 105, 0), rgba(72, 187, 120, 0));
+    --glow-success-strong: light-dark(rgba(56, 161, 105, 0.8), rgba(72, 187, 120, 0.8));
+    --glow-danger-strong: light-dark(rgba(229, 62, 62, 0.8), rgba(252, 129, 129, 0.8));
+}
+
+/* Force light mode */
+:root[data-theme="light"] {
+    color-scheme: light;
+}
+
+/* Force dark mode */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+}

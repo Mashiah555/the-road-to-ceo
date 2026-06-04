@@ -1,0 +1,157 @@
+/* --- Spinning Outline Button --- */
+.spinning-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 3px;
+    overflow: hidden;
+    display: inline-flex;
+    z-index: 50;
+}
+
+.spinning-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 500%;
+    background: conic-gradient(from 0deg, transparent 70%, var(--color-primary) 100%);
+    animation: spin-outline 2s linear infinite;
+    z-index: 0;
+}
+
+.spinning-btn-inner {
+    position: relative;
+    background-color: var(--color-secondary-alt);
+    color: var(--text-action);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    z-index: 1;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.spinning-btn:hover .spinning-btn-inner {
+    background-color: var(--color-secondary-dark);
+    /* Darkened hover state adaptation */
+    color: var(--color-primary);
+}
+
+@keyframes spin-outline {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .spinning-btn {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Screen management */
+.screen {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.screen.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Attention Animations --- */
+.cta-pulse {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--glow-success);
+    }
+
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px var(--glow-success-transparent);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--glow-success-transparent);
+    }
+}
+
+/* Jump animations for rank changes */
+#current-rank {
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.rank-up-anim {
+    animation: rank-up-pop 0.8s ease-out forwards;
+}
+
+.rank-down-anim {
+    animation: rank-down-pop 0.8s ease-out forwards;
+}
+
+@keyframes rank-up-pop {
+    0% {
+        transform: scale(1);
+        color: var(--color-primary-dark);
+    }
+
+    30% {
+        transform: scale(1.5);
+        color: var(--color-success);
+        text-shadow: 0 0 15px var(--glow-success-strong);
+    }
+
+    100% {
+        transform: scale(1);
+        color: var(--color-primary-dark);
+    }
+}
+
+@keyframes rank-down-pop {
+    0% {
+        transform: scale(1);
+        color: var(--color-primary-dark);
+    }
+
+    30% {
+        transform: scale(1.4);
+        color: var(--color-danger);
+        text-shadow: 0 0 15px var(--glow-danger-strong);
+    }
+
+    100% {
+        transform: scale(1);
+        color: var(--color-primary-dark);
+    }
+}
