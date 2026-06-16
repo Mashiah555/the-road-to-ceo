@@ -2,9 +2,9 @@
 /firebase-debug.log
 /firebase-debug.*.log
 .firebaserc
+.firebase
 
 # Firebase Hosting
-/firebase.json
 *.cache
 hosting/.cache
 
@@ -26,3 +26,4 @@ yarn-error.log*
 
 # Environment files (local configs)
 /.env.*
+.env
