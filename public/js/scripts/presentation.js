@@ -5,6 +5,10 @@ function initPresentation() {
     const container = document.getElementById('presentation-container');
     const dotsContainer = document.getElementById('dots-container');
 
+    // Containers Reset
+    container.innerHTML = '';
+    dotsContainer.innerHTML = '';
+
     slidesData.forEach((slide, index) => {
         const slideDiv = document.createElement('div');
         slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
@@ -84,6 +88,7 @@ function goToSlide(index) {
     updatePresentationUI();
 }
 
+// Keyboard Navigation
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') {
         nextSlide();

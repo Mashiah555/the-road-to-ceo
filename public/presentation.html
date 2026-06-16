@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div class="ambient-glow"></div>
 
     <!-- Back to game button-->
     <a href="/" class="back-btn">
@@ -23,9 +24,9 @@
 
     <!-- Navigation Controls -->
     <div class="controls">
-        <button id="prev-btn" onclick="prevSlide()">הקודם</button>
+        <button id="prev-btn" class="nav-btn" onclick="prevSlide()">הקודם</button>
         <div id="dots-container"></div>
-        <button id="next-btn" onclick="nextSlide()">הבא</button>
+        <button id="next-btn" class="nav-btn primary" onclick="nextSlide()">הבא</button>
     </div>
 
     <script src="js/data/presentation_data.js"></script>

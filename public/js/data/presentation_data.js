@@ -4,7 +4,7 @@ const slidesData = [
     {
         title: "הדרך למנכ\"לות",
         subtitle: "משחק סימולציה שמכין אותנו לעולם העבודה האמיתי.",
-        icon: `<img src="assets/images/logo.png" alt="לוגו המשחק" style="max-width: 150px; border-radius: 20%; box-shadow: 0 8px 20px rgba(0,0,0,0.5);">`
+        icon: `<img src="assets/images/logo.png" alt="לוגו המשחק" style="max-width: 120px;">`
     },
     {
         title: "הרעיון והערך",
