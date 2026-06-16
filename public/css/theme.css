@@ -8,8 +8,9 @@
     --bg-surface-alt: light-dark(#e2e8f0, #4a5568);
 
     /* Text Colors */
-    --text-main: light-dark(#333333, #f7fafc);
-    --text-muted: light-dark(#a0aec0, #cbd5e0);
+    --text-main: light-dark(#2d3030, #f7fafc);
+    --text-secondary: light-dark(#4e5757, #dce6f1);
+    --text-muted: light-dark(#a0aec0, #bfc9d4);
     --text-action: light-dark(#f7fafc, #f7fafc);
 
     /* Primary Brand Colors (Blues) */
@@ -21,7 +22,7 @@
 
     /* Success Colors (Greens) */
     --color-success: light-dark(#38a169, #2f855a);
-    --color-success-dark: light-dark(#2f855a, #68d391);
+    --color-success-dark: light-dark(#2f855a, #38a169);
     --color-success-bg: light-dark(#f5fff9, #22543d);
 
     /* Danger/Error Colors (Reds) */

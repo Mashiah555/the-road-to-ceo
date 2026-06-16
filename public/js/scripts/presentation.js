@@ -1,3 +1,10 @@
+// משיכת הגדרת העיצוב (מואר/מוחשך) מהזיכרון של הדפדפן והחלתה על המצגת
+// Set the presentation theme mode to the theme stored as currently active
+const savedTheme = localStorage.getItem('theme-preference');
+if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+}
+
 // --- Presentation Logic ---
 let currentSlideIndex = 0;
 
