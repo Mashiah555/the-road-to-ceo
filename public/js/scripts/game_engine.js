@@ -61,6 +61,7 @@ function loadRandomScenario() {
     // Reset UI for new scenario
     document.getElementById('feedback-box').style.display = 'none';
     document.getElementById('options-container').style.display = 'flex';
+    document.getElementById('options-instruction').style.display = 'block';
     document.getElementById('scenario-text').innerText = scenario.text;
 
     // Resume global timer
@@ -112,6 +113,7 @@ function handleChoice(option) {
 
     // Hide options, show feedback
     document.getElementById('options-container').style.display = 'none';
+    document.getElementById('options-instruction').style.display = 'none';
     const feedbackBox = document.getElementById('feedback-box');
     feedbackBox.style.display = 'block';
 
@@ -176,7 +178,7 @@ function handleChoice(option) {
             feedbackHtml += `הודחתם מתפקידכם ואתם שוב בדרגת`;
         }
     }
-    feedbackHtml += ` ${rankHierarchy[currentRankIndex]}.`;
+    feedbackHtml += ` <span style="color: var(--color-primary-dark); font-weight: bold;">${rankHierarchy[currentRankIndex]}</span>.`;
 
     document.getElementById('feedback-text').innerHTML = feedbackHtml;
 

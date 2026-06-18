@@ -64,8 +64,8 @@ body {
 /* Scenario typography */
 #scenario-text {
     font-size: 1.4em;
-    margin-bottom: 25px;
-    line-height: 1.6;
+    margin-bottom: 10px;
+    line-height: 1.5;
     font-weight: 600;
     background-color: var(--color-primary-bg);
     color: var(--color-primary-dark);
@@ -78,6 +78,27 @@ body {
     font-size: 1.2em;
     margin-bottom: 25px;
     font-weight: 625;
+}
+
+/* Feedback box styles */
+#feedback-box {
+    display: none;
+    background-color: var(--color-success-bg);
+    border: 2px solid var(--color-success);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#feedback-box.error {
+    background-color: var(--color-danger-bg);
+    border-color: var(--color-danger-border);
+}
+
+#feedback-text {
+    font-size: 1.2em;
+    margin-bottom: 15px;
 }
 
 /* General buttons */

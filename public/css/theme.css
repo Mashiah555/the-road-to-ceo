@@ -17,7 +17,7 @@
     --color-primary: light-dark(#51a2ee, #1b5ca0);
     --color-primary-dark: light-dark(#4b8cd0, #3383bd);
     /* Unified #386ca1 and #2b6cb0 */
-    --color-primary-bg: light-dark(#ebf8ff, #253245);
+    --color-primary-bg: light-dark(#ebf8ff, #192635);
     --color-primary-border: light-dark(#90cdf4, #2b6cb0);
 
     /* Success Colors (Greens) */
