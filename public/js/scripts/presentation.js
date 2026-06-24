@@ -17,12 +17,18 @@ function initPresentation() {
     dotsContainer.innerHTML = '';
 
     slidesData.forEach((slide, index) => {
+        let teamHtml = '';
+        if (slide.team) {
+            teamHtml = `<div class="slide-credits">מגישים: <br> ${slide.team.join(' • ')}</div>`;
+        }
+
         const slideDiv = document.createElement('div');
         slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
         slideDiv.innerHTML = `
             <div class="slide-icon">${slide.icon}</div>
             <h1 class="slide-title">${slide.title}</h1>
             <p class="slide-subtitle">${slide.subtitle}</p>
+            ${teamHtml}
         `;
         container.appendChild(slideDiv);
 

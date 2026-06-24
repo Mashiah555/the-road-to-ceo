@@ -4,7 +4,8 @@ const slidesData = [
     {
         title: "הדרך למנכ\"לות",
         subtitle: "משחק סימולציה שמכין אותנו לעולם העבודה האמיתי.",
-        icon: `<img src="assets/images/logo.png" alt="לוגו המשחק" style="max-width: 120px;">`
+        icon: `<img src="assets/images/logo.png" alt="לוגו המשחק" style="max-width: 120px;">`,
+        team: ["יובל משיח", "יהוידע עזיזי", "מאיר רביבו", "עדיאל יקותיאל"]
     },
     {
         title: "הרעיון והערך",

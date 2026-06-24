@@ -226,6 +226,24 @@ html {
     box-shadow: 0 0 10px var(--color-primary-bg);
 }
 
+/* Credits Section */
+.slide-credits {
+    margin-top: 40px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-top: 1px solid color-mix(in srgb, var(--text-muted) 30%, transparent);
+    padding-top: 20px;
+    transform: translateY(30px);
+    opacity: 0;
+    line-height: 1.6;
+}
+
+/* Credits Animation */
+.slide.active .slide-credits {
+    animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards 0.7s;
+}
+
 /* Small screen compatibility */
 @media (max-width: 768px) {
     .slide {
